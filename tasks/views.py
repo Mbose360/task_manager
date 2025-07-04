@@ -2,13 +2,14 @@ from rest_framework import generics
 from tasks.models import Task
 from .serializers import UserSerializer,TaskSerializer
 from django.contrib.auth.models import User
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,AllowAny
 
 
 # register view
 class Registerview(generics.CreateAPIView):
     queryset=User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [AllowAny]
 
 # task creation view
 class TaskListCreatView(generics.ListCreateAPIView):

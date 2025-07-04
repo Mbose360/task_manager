@@ -4,7 +4,7 @@ from .models import Task
 
 # user register serializer
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(writr_only=True)
+    password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
@@ -22,5 +22,5 @@ class UserSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id','title','description','status','due_date','created_at','updated_at']
+        fields = ['title','description','status','due_date','created_at','updated_at']
         read_only_fields = ['user','created_at','updated_at']
