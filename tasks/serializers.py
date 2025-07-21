@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Task
+from datetime import date 
 
 # user register serializer
 class UserSerializer(serializers.ModelSerializer):
@@ -24,3 +25,8 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = ['title','description','status','due_date','created_at','updated_at']
         read_only_fields = ['user','created_at','updated_at']
+    def validate_due_date(self, value):
+        if value and value < date.today():
+            raise serializers.ValidationError("Due date cannot be in the past.")
+        return value
+
